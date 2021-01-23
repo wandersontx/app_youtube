@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
-class CustomSearchDelegate extends SearchDelegate<String>{
-
+class CustomSearchDelegate extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
-        onPressed: (){
-          query = "";
-        }
-      )      
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            query = "";
+          })
     ];
   }
 
@@ -18,11 +16,9 @@ class CustomSearchDelegate extends SearchDelegate<String>{
   Widget buildLeading(BuildContext context) {
     return IconButton(
         icon: Icon(Icons.arrow_back),
-        onPressed: (){
-          close(context, null);
-        }
-      )      
-    ;
+        onPressed: () {
+          close(context, "");
+        });
   }
 
   @override
@@ -34,7 +30,36 @@ class CustomSearchDelegate extends SearchDelegate<String>{
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Container();
-  }
+    //Implementação apenas para teste, o normal seriaa recupear as sugestões de uma API
+    List<String> lista = List();
+    if (query.isNotEmpty) {
+      lista = [
+        'Android',
+        'Android navegação',
+        'IOS',
+        'Jogos',
+        'vue',
+        'laravel',
+        'loops',
+        'vue 3',
+      ]
+          .where((texto) => texto.toLowerCase().startsWith(query.toLowerCase()))
+          .toList();
 
+      return ListView.builder(
+          itemCount: lista.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              onTap: () {
+                close(context, lista[index]);
+              },
+              title: Text(lista[index]),
+            );
+          });
+    } else {
+      return Center(
+        child: Text('Nenhum resultado para a pesquisa!'),
+      );
+    }
+  }
 }
