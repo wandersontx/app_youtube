@@ -1,3 +1,4 @@
+import 'package:app_youtube/CustomSearchDelegate.dart';
 import 'package:app_youtube/telas/Biblioteca.dart';
 import 'package:app_youtube/telas/EmAlta.dart';
 import 'package:app_youtube/telas/Inicio.dart';
@@ -26,22 +27,32 @@ class _HomeState extends State<Home> {
           height: 22,
           ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.videocam),
-            onPressed: (){
-              print('ação: videocam');
-            }
-          ),
+          // IconButton(
+          //   icon: Icon(Icons.videocam),
+          //   onPressed: (){
+          //     print('ação: videocam');
+          //   }
+          // ),
+          // IconButton(
+          //   icon: Icon(Icons.search),
+          //   onPressed: (){
+          //     print('ação: pesquisa');
+          //   }
+          // ),
+          // IconButton(
+          //   icon: Icon(Icons.account_circle),
+          //   onPressed: (){
+          //     print('ação: conta');
+          //   }
+          // ),
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: (){
-              print('ação: pesquisa');
-            }
-          ),
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            onPressed: (){
-              print('ação: conta');
+            onPressed: () async{
+              String queryConsula = await showSearch(
+                context: context,
+                delegate: CustomSearchDelegate()
+              );
+              print('usuario digitou '+queryConsula);
             }
           ),
         ],
